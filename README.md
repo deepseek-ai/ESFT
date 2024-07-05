@@ -19,7 +19,7 @@ git clone https://github.com/deepseek-ai/ESFT.git
 cd esft
 ```
 
-### Install required dependencies
+### Install dependencies
 ```bash
 pip install transformers torch safetensors
 ```
