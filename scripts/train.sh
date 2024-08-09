@@ -2,7 +2,7 @@
 export TOKENIZERS_PARALLELISM=false
 
 exp_name="test/eval_translation"
-base_model_path="/hf3fs-jd/prod/deepseek/shared/wangzihan/models/huggingface/vanilla_model"
+base_model_path="deepseek-ai/esft-vanilla-lite"
 # turn above to for loop
 python train.py \
     --base_model_path=${base_model_path} \
