@@ -1,0 +1,31 @@
+seed: 5934875
+# Model settings
+seq_length: 4096  # Maximum sequence length
+
+# Data settings
+per_device_batch_size: 1
+n_device: 8  # Number of devices
+
+# Training settings
+optim: adamw_torch_fused
+steps: 500  # Number of training steps
+learning_rate: 0.00001  # Learning rate
+weight_decay: 0.1  # Weight decay for optimizer
+warmup_steps: 0  # Number of warmup steps for learning rate scheduler
+logging_steps: 10  # Log every X steps
+adam_beta1: 0.9
+adam_beta2: 0.95
+random_concat_ratio: 0.2  # Ratio of random concatenation
+
+
+# Evaluation settings
+eval_steps: 100  # Evaluate every X steps
+save_steps: 100  # Save model every X steps
+
+# Tokenizer settings
+
+# Additional settings (if needed)
+gradient_checkpointing: true
+gradient_accumulation_steps: 16  # Number of updates steps to accumulate before performing a backward/update pass
+max_grad_norm: 1.0  # Max gradient norm for gradient clipping
+ep_size: 2

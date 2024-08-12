@@ -1,10 +1,12 @@
-python scripts/get_expert_scores.py \
-    --eval_datasets=intent,summary,law,translation \
+python scripts/expert/get_expert_scores.py \
+    --eval_dataset=translation \
     --base_model_path=deepseek-ai/ESFT-vanilla-lite \
-    --output_dir=results/expert_scores \
-    --n_sample_tokens=8192 # this sample size is a hyperparameter
+    --output_dir=results/expert_scores/translation \
+    --n_sample_tokens=131072 \
+    --world_size=4 \
+    --gpus_per_rank=2
 
-python scripts/generate_expert_config.py \
+python scripts/expert/generate_expert_config.py \
     --eval_datasets=intent,summary,law,translation \
     --expert_scores_dir=results/expert_scores \
     --output_dir=results/expert_configs \
