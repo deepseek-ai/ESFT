@@ -26,7 +26,7 @@ def to_buffer(module, mark_param=True):
 
 
 def to_param(module):
-    """Turns all buffers of a module into parameterss."""
+    """Turns all buffers of a module into parameters."""
     if module is None:
         return
     modules = module.modules()
@@ -78,10 +78,10 @@ def to_esft(model, adapter_config):
 
 
 def load_state_dict(folder_path):
-    # 初始化空的 state_dict
+    # Initialize empty state_dict
     combined_state_dict = {}
 
-    # 遍历文件夹中的所有文件
+    # Iterate through all files in the folder
     for file_name in os.listdir(folder_path):
         if file_name.endswith('.safetensors'):
             file_path = os.path.join(folder_path, file_name)
