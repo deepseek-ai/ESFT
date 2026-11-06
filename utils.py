@@ -20,7 +20,7 @@ def get_formatted_input_and_target(messages, tokenizer, IGNORE_TOKEN_ID=-100, ma
     for idx, message in enumerate(messages):
         if idx == 0:
             input_ids.extend([tokenizer.bos_token_id])
-            target_ids.extend([tokenizer.bos_token_id])
+            target_ids.extend([IGNORE_TOKEN_ID if mask_prompt else tokenizer.bos_token_id])
 
         if message['role'] == "user":
             formatted_question = get_formatted_question(message['content'])
@@ -63,12 +63,13 @@ def get_examples_from_buffer_pad(buffer, seq_length, tokenizer, random_concat_ra
             all_target_ids_list.append(all_target_ids)
             all_input_ids, all_target_ids = [], []
 
-    all_input_ids = all_input_ids + [tokenizer.pad_token_id for i in range(seq_length - len(all_input_ids))]
-    all_target_ids = all_target_ids + [IGNORE_TOKEN_ID for i in range(seq_length - len(all_target_ids))]
-    all_input_ids_list.append(all_input_ids)
-    all_target_ids_list.append(all_target_ids)
+    if len(all_input_ids) > 0:
+        all_input_ids = all_input_ids + [tokenizer.pad_token_id for i in range(seq_length - len(all_input_ids))]
+        all_target_ids = all_target_ids + [IGNORE_TOKEN_ID for i in range(seq_length - len(all_target_ids))]
+        all_input_ids_list.append(all_input_ids)
+        all_target_ids_list.append(all_target_ids)
 
-    if len(all_input_ids) <= 0:
+    if not all_input_ids_list:
         return None
     return {
         "input_ids": torch.tensor(all_input_ids_list, dtype=torch.long),
