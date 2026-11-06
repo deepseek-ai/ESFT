@@ -16,7 +16,8 @@ def to_buffer(module, mark_param=True):
         delattrs.append([module, name, param])
     if mark_param and delattrs:
         old_param_list = getattr(module, 'param_list', [])
-        module.param_list = old_param_list + [name for _, name, _ in delattrs]
+        seen = set(old_param_list)
+        module.param_list = old_param_list + [name for _, name, _ in delattrs if name not in seen]
     for module, name, _ in delattrs:
         delattr(module, name)  # Unregister parameter
     for module, name, param in delattrs:
